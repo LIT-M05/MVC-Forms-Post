@@ -1,0 +1,28 @@
+﻿@using WebApplication10.Models
+@model PeopleViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container" style="margin-top: 40px;">
+    <h1>There are currently @Model.PeopleCount people in the database</h1>
+    <div class="row">
+
+
+        <form class="form" action="/formdemo/addperson" method="POST">
+            <input type="text" class="form-control" name="firstName" placeholder="First Name"/>
+            <br/>
+            <input type="text" class="form-control" name="lastName" placeholder="Last Name"/>
+            <br/>
+            <input type="text" class="form-control" name="age" placeholder="Age"/>
+            <br/>
+            <button class="btn btn-danger">Add Person</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
