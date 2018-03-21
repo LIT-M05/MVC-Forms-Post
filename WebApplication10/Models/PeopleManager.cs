@@ -61,5 +61,58 @@ namespace WebApplication10.Models
             connection.Dispose();
             return people;
         }
+
+        public Person GetById(int id)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM People WHERE Id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            Person person = null;
+            if (reader.Read())
+            {
+                person = new Person
+                {
+                    Id = (int) reader["Id"],
+                    FirstName = (string) reader["FirstName"],
+                    LastName = (string) reader["LastName"],
+                    Age = (int) reader["Age"]
+                };
+            }
+            connection.Close();
+            connection.Dispose();
+            return person;
+        }
+
+        public void UpdatePerson(Person person)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "UPDATE People SET FirstName = @firstName, " +
+                              "LastName = @lastName, Age = @age " +
+                              "WHERE Id = @id";
+            cmd.Parameters.AddWithValue("@firstName", person.FirstName);
+            cmd.Parameters.AddWithValue("@lastName", person.LastName);
+            cmd.Parameters.AddWithValue("@age", person.Age);
+            cmd.Parameters.AddWithValue("@id", person.Id);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            connection.Close();
+            connection.Dispose();
+        }
+
+        public void Delete(int id)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "DELETE FROM People WHERE Id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            connection.Close();
+            connection.Dispose();
+        }
     }
 }

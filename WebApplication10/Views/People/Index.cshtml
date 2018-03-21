@@ -9,37 +9,48 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-<div class="container" style="margin-top: 40px;">
-    <a href="/people/showadd" class="btn btn-primary">Add Person</a>
-    <table class="table table-bordered table-hover tabled-striped">
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Age</th>
-        </tr>
-        @foreach (Person person in Model)
-        {
+    <div class="container" style="margin-top: 40px;">
+        <a href="/people/showadd" class="btn btn-primary">Add Person</a>
+        <table class="table table-bordered table-hover tabled-striped">
             <tr>
-                <td>@person.Id</td>
-                <td>@person.FirstName</td>
-                <td>@person.LastName</td>
-                <td>@person.Age</td>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
-        }
-    </table>
-    
-    
-    <br />
-    <br />
-    <h3>Below is a demo of hidden inputs</h3>
-    
-    <form method="post" action="/people/hiddendemo">
-        <input type="text" name="junk"/>
-        <br/>
-        <input type="hidden" name="foobar" value="hello!!!!!"/>
-        <button class="btn btn-success">Submit form!</button>
-    </form>
-</div>
+            @foreach (Person person in Model)
+            {
+                <tr>
+                    <td>@person.Id</td>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td>@person.Age</td>
+                    <td>
+                        <a href="/people/edit?id=@person.Id" class="btn btn-warning">Edit</a>
+                    </td>
+                    <td>
+                        <form method="post" action="/people/delete">
+                            <input type="hidden" name="id" value="@person.Id"/>
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+
+
+        @*<br />
+            <br />
+            <h3>Below is a demo of hidden inputs</h3>
+
+            <form method="post" action="/people/hiddendemo">
+                <input type="text" name="junk"/>
+                <br/>
+                <input type="hidden" name="foobar" value="hello!!!!!"/>
+                <button class="btn btn-success">Submit form!</button>
+            </form>*@
+    </div>
 </body>
 </html>
